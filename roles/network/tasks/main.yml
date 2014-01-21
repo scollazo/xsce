@@ -3,7 +3,7 @@
 - name: Discover LAN iface
   template: src=xsce_discovered_lan.j2
             dest=/etc/sysconfig/xsce_discovered_lan
-  when: 'xsce_lan_iface is not defined or xsce_lan_iface != "" '
+  when: 'xsce_lan_iface == None '
   tags:
     - network-discover
     - gateway
@@ -19,7 +19,7 @@
 - name: Declare xsce_discovered_lan
   command: cat /etc/sysconfig/xsce_discovered_lan
   register: discovered_lan 
-  when: 'xsce_lan_iface is not defined or xsce_lan_iface != "" '
+  when: 'xsce_lan_iface == None '
   tags:
     - network-discover
     - gateway
@@ -32,10 +32,15 @@
     - services
     - squid
 
+- name: Create xsce configured lan fact
+  set_fact:
+     xsce_lan_iface: "{{ xsce_lan_iface }}"
+  when: 'xsce_lan_iface != None'
+
 - name: Create xsce discovered lan fact
   set_fact:
      xsce_lan_iface: "{{ discovered_lan.stdout }}"
-  when: 'xsce_lan_iface is not defined or xsce_lan_iface != "" '
+  when: 'xsce_lan_iface == None '
   tags:
     - network-discover
     - gateway
