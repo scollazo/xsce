@@ -15,6 +15,7 @@ Requires:  bash, python >= 2.7, ansible >= 1.3
 URL:       http://github.com/XSCE/xsce.git
 Provides:  xs-config
 Provides:  xsce-server
+Provides:  vixie-cron
 
 BuildRoot: %{_topdir}/BUILD/%{name}-%{version}-%{release}
 
