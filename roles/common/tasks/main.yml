@@ -29,6 +29,11 @@
     - http://xsce.activitycentral.com/repos/xsce-release.repo
     - http://xsce.activitycentral.com/repos/xsce-extra.repo
 
+- name: Install xsce fc20 fedora repo
+  get_url: url=http://xsce.activitycentral.com/repos/fc20.repo
+           dest=/etc/yum.repos.d/
+  when: ansible_distribution_release == "Heisenbug"
+
 - include: xo.yml
   when: ansible_distribution_release == "based on Fedora 18"
   tags:
